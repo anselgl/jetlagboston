@@ -54,7 +54,7 @@ Repository: https://github.com/anselgl/jetlagboston. Development updates are on 
 
 ## Connected game sheet
 
-`dist/config.json` points to the previously provided Google Sheet. The website expects 37 Ownership rows and is awaiting the replacement spreadsheet that includes Longwood. Until its link is connected, the current feed may report missing territory rows. Keep public viewing enabled and player editing restricted. The website polls every 30 seconds, although Google may cache responses. Keep the Ownership, History, and Teams tab names unchanged.
+`dist/config.json` points to the replacement Google Sheet that includes Longwood. All three public feeds were verified October 10, 2026: 37 territories, four enabled teams, and 148 challenge-history rows. The template currently contains 10 sample claims or locks and no active challenges. The local board successfully loaded the sheet. Keep public viewing enabled and player editing restricted. The website polls every 30 seconds, although Google may cache responses. Keep the Ownership, History, and Teams tab names unchanged.
 
 ## Team count
 
@@ -62,7 +62,7 @@ Import the player template into a NEW Google spreadsheet to preserve your curren
 
 The website reads `teamsCsvUrl` on every refresh, then validates Ownership and History against the enabled teams before applying all three together. Invalid entries retain the last valid board. `teamsFeedOptional` supports the current older sheet without a Teams tab (Google sometimes returns the first tab when a requested tab is missing). Once a valid Teams feed loads, errors are surfaced. A newly imported spreadsheet needs its new document ID connected in config.json. The current shared sheet has not been changed. After import, check that the ownership dropdown source converted to Teams!D2:D5 and responds to Setup!B3.
 
-The currently configured sheet is https://docs.google.com/spreadsheets/d/1VxpU2ZcbeVWVpwySdY7uaqdYacF8Ip01crg3k9ZfhYs/edit. Teams is required for this workbook (teamsFeedOptional=false). Setup!B3 controls the enabled team count through the Teams tab; the website rereads it every 30 seconds.
+The currently configured sheet is https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/edit. Teams is required for this workbook (teamsFeedOptional=false). Setup!B3 controls the enabled team count through the Teams tab; the website rereads it every 30 seconds.
 
 The board opens directly on the map with a compact heading and a miniature ticket logo. The former intro artwork remains in the inert `intro-artwork` HTML template. Scores and sheet/device controls follow the board. Selection emphasizes only the territory outline, with no rectangular label or polygon focus border.
 Milton is a whole municipality using the same MassGIS layer. The new template includes Milton and Longwood in Ownership and all four team tabs, with 148 combined History rows when four teams are enabled.
