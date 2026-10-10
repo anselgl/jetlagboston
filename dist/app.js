@@ -92,7 +92,8 @@ async function init(){try{[config,territories,geography]=await Promise.all([json
   map.createPane('territoryLabels');map.getPane('territoryLabels').style.zIndex=450;
   for(const [id,layer] of layers){
     const bounds=layer.getBounds(),name=territories.find(t=>t.id===id).name;
-    const marker=L.marker(layer.getCenter(),{pane:'territoryLabels',keyboard:true,title:name,icon:L.divIcon({className:'territory-map-marker',iconSize:[14,14],iconAnchor:[7,7],html:'<span class="territory-map-dot"></span><svg class="territory-map-lock" viewBox="0 0 24 26" aria-hidden="true"><path d="M6 11V8a6 6 0 0 1 12 0v3" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="3" y="10" width="18" height="14" rx="3" fill="currentColor" stroke="white" stroke-width="1.5"/><circle cx="12" cy="16" r="2" fill="white"/><path d="M12 17v3" stroke="white" stroke-width="2"/></svg><span class="territory-map-name">'+esc(name)+'</span>'})}).addTo(map);
+    const center=geography.features.find(f=>f.properties.id===id).properties.labelCenter;
+    const marker=L.marker(center?L.latLng(center[1],center[0]):layer.getCenter(),{pane:'territoryLabels',keyboard:true,title:name,icon:L.divIcon({className:'territory-map-marker',iconSize:[14,14],iconAnchor:[7,7],html:'<span class="territory-map-dot"></span><svg class="territory-map-lock" viewBox="0 0 24 26" aria-hidden="true"><path d="M6 11V8a6 6 0 0 1 12 0v3" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="3" y="10" width="18" height="14" rx="3" fill="currentColor" stroke="white" stroke-width="1.5"/><circle cx="12" cy="16" r="2" fill="white"/><path d="M12 17v3" stroke="white" stroke-width="2"/></svg><span class="territory-map-name">'+esc(name)+'</span>'})}).addTo(map);
     marker.on('click',()=>select(id));territoryMarkers.push({id,marker,area:(bounds.getNorth()-bounds.getSouth())*(bounds.getEast()-bounds.getWest())});
   }
   map.on('zoomend moveend resize',layoutTerritoryLabels);
