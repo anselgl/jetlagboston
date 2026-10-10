@@ -3,7 +3,17 @@ import {stationDotSvg} from './transit.js';
 const $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let config,territories,geography,map,layers=new Map(),ownership={},history=[],selected=null,revealed=new Set(),remember=false,busy=false,lastSuccess=null;
 const storageKey='boston-showdown-reveals-v1';
-let mapStyle='clean',basemaps,territoryMarkers=[];
+let mapStyle='clean',basemaps,territoryMarkers=[],hideTerritoryIcons=false;
+function updateMapCaption(){
+  $('#map-caption').textContent=mapStyle==='clean'?(hideTerritoryIcons?'Territory boundaries only':'Territory names only · zoom in to see smaller areas'):'Street names and landmarks · muted background colors';
+}
+function toggleTerritoryIcons(){
+  hideTerritoryIcons=!hideTerritoryIcons;
+  $('#map').classList.toggle('hide-territory-icons',hideTerritoryIcons);
+  $('#icons-toggle').setAttribute('aria-pressed',String(hideTerritoryIcons));
+  updateMapCaption();
+  if(!hideTerritoryIcons)layoutTerritoryLabels();
+}
 let transitLayer,transitLoading=false;
 async function toggleTransit(){
   if(transitLoading)return;
@@ -37,7 +47,7 @@ function setMapStyle(style){
   for(const [name,layer] of Object.entries(basemaps)){if(name===style)layer.addTo(map);else map.removeLayer(layer);}
   $('#map').classList.toggle('clean-map',style==='clean');
   document.querySelectorAll('[data-map-style]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mapStyle===style)));
-  $('#map-caption').textContent=style==='clean'?'Territory names only · zoom in to see smaller areas':'Street names and landmarks · muted background colors';
+  updateMapCaption();
   paint();
 }
 function layoutTerritoryLabels(){
@@ -84,6 +94,7 @@ async function init(){try{[config,territories,geography]=await Promise.all([json
   const sizeStations=()=>map.getPane('transitStations').style.setProperty('--station-size',map.getZoom()<12?'10px':map.getZoom()<14?'14px':'18px');
   map.on('zoomend',sizeStations);sizeStations();
   $('#transit-toggle').onclick=toggleTransit;
+  $('#icons-toggle').onclick=toggleTerritoryIcons;
   basemaps={
     detailed:L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,className:'muted-basemap',attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}),
     clean:L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:13,maxZoom:19,attribution:'Tiles © <a href="https://www.esri.com/">Esri</a>, USGS, NOAA'})
@@ -93,7 +104,7 @@ async function init(){try{[config,territories,geography]=await Promise.all([json
   for(const [id,layer] of layers){
     const bounds=layer.getBounds(),name=territories.find(t=>t.id===id).name;
     const center=geography.features.find(f=>f.properties.id===id).properties.labelCenter;
-    const marker=L.marker(center?L.latLng(center[1],center[0]):layer.getCenter(),{pane:'territoryLabels',keyboard:true,title:name,icon:L.divIcon({className:'territory-map-marker',iconSize:[14,14],iconAnchor:[7,7],html:'<span class="territory-map-dot"></span><svg class="territory-map-lock" viewBox="0 0 24 26" aria-hidden="true"><path d="M6 11V8a6 6 0 0 1 12 0v3" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="3" y="10" width="18" height="14" rx="3" fill="currentColor" stroke="white" stroke-width="1.5"/><circle cx="12" cy="16" r="2" fill="white"/><path d="M12 17v3" stroke="white" stroke-width="2"/></svg><span class="territory-map-name">'+esc(name)+'</span>'})}).addTo(map);
+    const marker=L.marker(center?L.latLng(center[1],center[0]):layer.getCenter(),{pane:'territoryLabels',keyboard:true,title:name,icon:L.divIcon({className:'territory-map-marker',iconSize:[14,14],iconAnchor:[7,7],html:'<span class="territory-map-dot"></span><svg class="territory-map-lock" viewBox="0 0 24 26" aria-hidden="true"><path d="M5 10V9a7 7 0 0 1 14 0v1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V12a2 2 0 0 1 2-2ZM8 10h8V9a4 4 0 0 0-8 0v1Z" fill="white" fill-rule="evenodd" stroke="white" stroke-width="4" stroke-linejoin="round"/><path d="M5 10V9a7 7 0 0 1 14 0v1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V12a2 2 0 0 1 2-2ZM8 10h8V9a4 4 0 0 0-8 0v1Z" fill="currentColor" fill-rule="evenodd"/><circle cx="12" cy="16" r="2" fill="white"/><path d="M12 17v3" stroke="white" stroke-width="2"/></svg><span class="territory-map-name">'+esc(name)+'</span>'})}).addTo(map);
     marker.on('click',()=>select(id));territoryMarkers.push({id,marker,area:(bounds.getNorth()-bounds.getSouth())*(bounds.getEast()-bounds.getWest())});
   }
   map.on('zoomend moveend resize',layoutTerritoryLabels);
