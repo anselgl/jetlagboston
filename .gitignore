@@ -1,0 +1,8 @@
+node_modules/
+*.tar.gz
+*.log
+.sites/
+artifact-build/
+outputs/
+preview.png
+live-board.png

@@ -1,0 +1,282 @@
+[
+  {
+    "id": "allston",
+    "name": "Allston",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/allston.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "back-bay",
+    "name": "Back Bay",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/back-bay.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "bay-village",
+    "name": "Bay Village",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/bay-village.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "beacon-hill",
+    "name": "Beacon Hill",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/beacon-hill.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "brighton",
+    "name": "Brighton",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/brighton.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "charlestown",
+    "name": "Charlestown",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/charlestown.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "chinatown-leather-district",
+    "name": "Chinatown–Leather District",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/chinatown-leather-district.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "dorchester",
+    "name": "Dorchester",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/dorchester.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "downtown",
+    "name": "Downtown",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/downtown.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "east-boston",
+    "name": "East Boston",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/east-boston.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "fenway-kenmore",
+    "name": "Fenway–Kenmore",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/fenway-kenmore.md",
+    "retryable": true,
+    "boundaryNote": "Draft: Fenway and Longwood combined; review Kenmore coverage."
+  },
+  {
+    "id": "hyde-park",
+    "name": "Hyde Park",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/hyde-park.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "jamaica-plain",
+    "name": "Jamaica Plain",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/jamaica-plain.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "mattapan",
+    "name": "Mattapan",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/mattapan.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "mission-hill",
+    "name": "Mission Hill",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/mission-hill.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "north-end",
+    "name": "North End",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/north-end.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "roslindale",
+    "name": "Roslindale",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/roslindale.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "roxbury",
+    "name": "Roxbury",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/roxbury.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "south-boston",
+    "name": "South Boston",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/south-boston.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "south-end",
+    "name": "South End",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/south-end.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "west-end",
+    "name": "West End",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/west-end.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "west-roxbury",
+    "name": "West Roxbury",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/west-roxbury.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "seaport",
+    "name": "Seaport",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/seaport.md",
+    "retryable": true,
+    "boundaryNote": "Draft: Boston South Boston Waterfront boundary; review against Google Maps."
+  },
+  {
+    "id": "cambridge",
+    "name": "Cambridge",
+    "kind": "Municipality",
+    "challengePath": "challenges/cambridge.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "somerville",
+    "name": "Somerville",
+    "kind": "Municipality",
+    "challengePath": "challenges/somerville.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "everett",
+    "name": "Everett",
+    "kind": "Municipality",
+    "challengePath": "challenges/everett.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "chelsea",
+    "name": "Chelsea",
+    "kind": "Municipality",
+    "challengePath": "challenges/chelsea.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "revere",
+    "name": "Revere",
+    "kind": "Municipality",
+    "challengePath": "challenges/revere.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "malden",
+    "name": "Malden",
+    "kind": "Municipality",
+    "challengePath": "challenges/malden.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "medford",
+    "name": "Medford",
+    "kind": "Municipality",
+    "challengePath": "challenges/medford.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "brookline",
+    "name": "Brookline",
+    "kind": "Municipality",
+    "challengePath": "challenges/brookline.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "newton",
+    "name": "Newton",
+    "kind": "Municipality",
+    "challengePath": "challenges/newton.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "quincy",
+    "name": "Quincy",
+    "kind": "Municipality",
+    "challengePath": "challenges/quincy.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "braintree",
+    "name": "Braintree",
+    "kind": "Municipality",
+    "challengePath": "challenges/braintree.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "winthrop",
+    "name": "Winthrop",
+    "kind": "Municipality",
+    "challengePath": "challenges/winthrop.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  }
+]
