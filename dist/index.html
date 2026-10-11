@@ -1,11 +1,97 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#102b29"><title>Jetlag: Boston Blitz · Territory game</title><link rel="stylesheet" href="leaflet.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="mobile.css"></head>
-<body><header><a class="brand" href="./"><svg class="brand-ticket" viewBox="0 0 64 76" aria-hidden="true" focusable="false"><path d="M1 1h62v49a5 5 0 0 0 0 10v15H1V60a5 5 0 0 0 0-10Z" fill="#f3ce3e" stroke="#dfb928" stroke-width="1.5"/><text x="32" y="11" class="ticket-kicker">BOS / FIELD OPERATIONS</text><text x="32" y="41" class="ticket-count">37</text><text x="32" y="49" class="ticket-kicker">TERRITORIES TO CAPTURE</text><path d="M7 55h50" stroke="currentColor" stroke-width=".8" stroke-dasharray="2 2"/><text x="32" y="66" class="ticket-footer">BOSTON BLITZ</text></svg><span>JETLAG:<br><strong>BOSTON BLITZ</strong></span></a><nav aria-label="Main"><button class="nav active" data-view="board">Game board</button><button class="nav" data-view="territories">Territories</button><button class="nav" data-view="rules">How to play</button></nav><button id="sheet-button" class="button light">Open game sheet ↗</button></header>
+<body><header><a class="brand" href="./" aria-label="Jetlag: Boston Blitz home"><svg class="brand-logo" aria-hidden="true" focusable="false" id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 320 84">
+  <!-- Generator: Adobe Illustrator 30.8.2, SVG Export Plug-In . SVG Version: 2.1.4 Build 7)  -->
+  <defs>
+    <style>
+      .st0 {
+        font-size: 31.11px;
+        letter-spacing: .02em;
+      }
+
+      .st0, .st1, .st2 {
+        fill: #142e2b;
+      }
+
+      .st0, .st3, .st2 {
+        isolation: isolate;
+      }
+
+      .st0, .st2 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .st4, .st1, .st5, .st6, .st3, .st7 {
+        stroke: #142e2b;
+      }
+
+      .st4, .st1, .st5, .st6, .st7 {
+        stroke-linejoin: round;
+      }
+
+      .st4, .st1, .st6, .st7 {
+        stroke-linecap: round;
+      }
+
+      .st4, .st5 {
+        stroke-width: 2.5px;
+      }
+
+      .st4, .st6, .st7 {
+        fill: none;
+      }
+
+      .st1, .st7 {
+        stroke-width: 2px;
+      }
+
+      .st5, .st8 {
+        fill: #f3ce3e;
+      }
+
+      .st6 {
+        stroke-width: 3px;
+      }
+
+      .st3 {
+        opacity: .45;
+        stroke-dasharray: 4 4;
+        stroke-width: 1.5px;
+      }
+
+      .st2 {
+        font-size: 39px;
+        letter-spacing: .03em;
+      }
+    </style>
+  </defs>
+  <path class="st5" d="M10,5h300v24c-7.18,0-13,5.82-13,13s5.82,13,13,13v24H10v-24c7.18,0,13-5.82,13-13s-5.82-13-13-13V5Z"/>
+  <path class="st3" d="M286,12v60"/>
+  <path class="st3" d="M35.07,12v60"/>
+  <g>
+    <g>
+      <path class="st6" d="M44.29,27.91h8.83M40.98,38.05h12.14M45.39,48.2h7.73"/>
+      <rect class="st1" x="58.64" y="13.25" width="41.94" height="48.48" rx="10" ry="10"/>
+      <path class="st8" d="M65.26,24.52h28.7v15.79h-28.7v-15.79Z"/>
+      <path class="st7" d="M79.61,24.52v15.79"/>
+      <path class="st6" d="M68.57,62.86l-4.42,7.89M90.65,62.86l4.42,7.89M67.47,68.5h24.28"/>
+    </g>
+    <ellipse class="st8" cx="69.68" cy="50.46" rx="3.31" ry="3.38"/>
+    <ellipse class="st8" cx="89.54" cy="50.46" rx="3.31" ry="3.38"/>
+  </g>
+  <g>
+    <text class="st2" transform="translate(109.26 42)"><tspan x="0" y="0">JETLAG:</tspan></text>
+    <text class="st0" transform="translate(109.19 69.99) scale(.71 1)"><tspan x="0" y="0">BOSTON BLITZ</tspan></text>
+  </g>
+  <path class="st4" d="M291,38l6,4-6,4"/>
+  <path class="st4" d="M29.4,46l-6-4,6-4"/>
+</svg></a><nav aria-label="Main"><button class="nav active" data-view="board">Game board</button><button class="nav" data-view="territories">Territories</button><button class="nav" data-view="rules">How to play</button></nav><button id="sheet-button" class="button light">Open game sheet ↗</button></header>
 <main>
 
-<section id="board-view"><div class="board-layout"><div class="map-shell"><div class="map-heading"><h1 class="board-title">The game board</h1><div class="map-tools"><div class="map-switch" role="group" aria-label="Map view"><button data-map-style="clean" aria-pressed="true">Clean board</button><button data-map-style="detailed" aria-pressed="false">Detailed map</button></div><button id="transit-toggle" aria-pressed="false" aria-controls="transit-legend">MBTA lines</button><button id="icons-toggle" aria-pressed="false" aria-controls="map" title="Hide territory dots, locks, and names">Hide icons</button><button id="fit">Show all territories ↗</button></div></div><p id="map-caption" class="map-caption">Territory names only · zoom in to see smaller areas</p><div id="map" aria-label="Interactive territory map"></div><div class="legend"><span><i class="neutral"></i>Unclaimed</span><span><i class="claimed"></i>Claimed</span><span><i class="locked"></i>Locked ◆</span></div><div id="transit-legend" class="transit-legend" hidden><span style="--line:#DA291C">Red / Mattapan</span><span style="--line:#ED8B00">Orange</span><span style="--line:#003DA5">Blue</span><span style="--line:#00843D">Green B–E</span><span style="--line:#7C878E">Silver (bus)</span><span style="--line:#80276C">Commuter rail</span><small>Route reference · <a href="https://www.mbta.com" target="_blank" rel="noopener">Check schedules &amp; service ↗</a></small></div><p id="transit-status" class="transit-status" role="status"></p></div><aside id="territory-panel"><div class="eyebrow">CHOOSE YOUR NEXT STOP</div><h2>Where to?</h2><p>Tap a territory on the map or pick one below. Challenge details stay hidden until you reveal the card.</p><label for="territory-search">Find a territory</label><input id="territory-search" type="search" placeholder="Search neighborhoods & cities"><div id="territory-list"></div></aside></div><div class="scorebar" id="scores"></div><div class="status-strip"><span id="sync-status" role="status">Demo board · Google Sheet not connected</span><button id="refresh">↻ Refresh</button><label><input id="remember" type="checkbox"> Remember revealed cards on this device</label></div><p class="map-note">Draft boundaries from Boston geographic data and MassGIS. Google Maps links are provided for reference; these outlines are not Google's exact boundaries.</p></section>
-<section id="territories-view" hidden><div class="section-heading"><div><span class="eyebrow">PLAN YOUR NEXT MOVE</span><h2>37 places. One city-sized adventure.</h2></div></div><div id="territory-grid"></div></section>
-<section id="rules-view" hidden><span class="eyebrow">FIELD MANUAL / V1</span><h2>Claim it. Challenge it. Lock it.</h2><div class="rules-grid"><article><b>01</b><h3>Arrive outdoors</h3><p>Leave transit and reach a public outdoor location inside the territory. The first team there records its name in Claimed by.</p></article><article><b>02</b><h3>One challenge at a time</h3><p>Confirm your arrival before revealing a card. Record the reveal order and Active status in your team tab. Finish or abandon your current challenge before opening another.</p></article><article><b>03</b><h3>Secure the territory</h3><p>Complete the challenge and record your team in Locked by. This overrides the initial claim, including when stealing an opponent's unlocked territory.</p></article><article><b>04</b><h3>Make your decision</h3><p>Retry only if the card allows it and you have not opened another challenge. Once you move on, that challenge cannot be retried. Locked territories cannot be stolen.</p></article></div><p>Honor system: the sheet is the shared record. Device memory is optional and does not enforce team rules. Challenge files are discoverable in this static site's source.</p></section>
+<section id="board-view"><div class="board-layout"><div class="map-shell"><div class="map-heading"><h1 class="board-title">The game board</h1><div class="map-tools"><div class="map-switch" role="group" aria-label="Map view"><button data-map-style="clean" aria-pressed="true">Clean board</button><button data-map-style="detailed" aria-pressed="false">Detailed map</button></div><button id="transit-toggle" aria-pressed="false" aria-controls="transit-legend">MBTA lines</button><button id="icons-toggle" aria-pressed="false" aria-controls="map" title="Hide territory dots, locks, and names">Hide icons</button><button id="fit">Show all territories ↗</button></div></div><p id="map-caption" class="map-caption">Territory names only · zoom in to see smaller areas</p><div id="map" aria-label="Interactive territory map"></div><div class="legend"><span><i class="neutral"></i>Unclaimed</span><span><i class="claimed"></i>Claimed</span><span><i class="locked"></i>Locked ◆</span></div><div id="transit-legend" class="transit-legend" hidden><span style="--line:#DA291C">Red / Mattapan</span><span style="--line:#ED8B00">Orange</span><span style="--line:#003DA5">Blue</span><span style="--line:#00843D">Green B–E</span><span style="--line:#7C878E">Silver (bus)</span><span style="--line:#80276C">Commuter rail</span><small>Route reference · <a href="https://www.mbta.com" target="_blank" rel="noopener">Check schedules &amp; service ↗</a></small></div><p id="transit-status" class="transit-status" role="status"></p></div><details id="territory-directory" class="territory-directory" open><summary><h2 id="directory-title" class="directory-open">Where to?</h2><span class="directory-closed">Show territory panel</span><span class="directory-arrow" aria-hidden="true"></span></summary><aside id="territory-panel"><p>Tap a territory on the map or pick one below. Challenge details stay hidden until you reveal the card.</p><label for="territory-search">Find a territory</label><input id="territory-search" type="search" placeholder="Search neighborhoods & cities"><div id="territory-list"></div></aside></details></div><div class="scorebar" id="scores"></div><div class="status-strip"><span id="sync-status" role="status">Demo board · Google Sheet not connected</span><button id="refresh">↻ Refresh</button><label><input id="remember" type="checkbox"> Remember revealed cards on this device</label></div><p class="map-note">Draft boundaries from Boston geographic data and MassGIS. Google Maps links are provided for reference; these outlines are not Google's exact boundaries.</p></section>
+<section id="territories-view" hidden><div class="section-heading territory-heading"><h2>Plan your next move</h2><fieldset class="territory-filters"><legend>Show territories</legend><label><input type="checkbox" value="unclaimed" checked>Unclaimed</label><label><input type="checkbox" value="claimed" checked>Claimed</label><label><input type="checkbox" value="locked" checked>Locked</label></fieldset></div><p id="territory-filter-summary" role="status"></p><div id="territory-grid"></div></section>
+<section id="rules-view" hidden><h2>Claim it. Challenge it. Lock it.</h2><div class="rules-grid"><article><b>01</b><h3>Arrive outdoors</h3><p>Leave transit and reach a public outdoor location inside the territory. The first team there records its name in Claimed by.</p></article><article><b>02</b><h3>One challenge at a time</h3><p>Confirm your arrival before revealing a card. Record the reveal order and Active status in your team tab. Finish or abandon your current challenge before opening another.</p></article><article><b>03</b><h3>Secure the territory</h3><p>Complete the challenge and record your team in Locked by. This overrides the initial claim, including when stealing an opponent's unlocked territory.</p></article><article><b>04</b><h3>Make your decision</h3><p>Retry only if the card allows it and you have not opened another challenge. Once you move on, that challenge cannot be retried. Locked territories cannot be stolen.</p></article></div><p>Honor system: the sheet is the shared record. Device memory is optional and does not enforce team rules. Challenge files are discoverable in this static site's source.</p></section>
 </main><footer><span>JETLAG: BOSTON BLITZ / A FRIENDS' FIELD GAME</span><span>Fan-made · Inspired by Jet Lag: The Game · Unaffiliated</span></footer>
 <template id="intro-artwork"><section class="intro"><div><div class="eyebrow">THE CITY IS YOUR GAME BOARD</div><h1>Next stop.<br><em>Your territory.</em></h1><p>Get there first. Take on the challenge.<br>Make Boston yours.</p></div><div class="trip-ticket"><span>BOS / FIELD OPERATIONS</span><strong>37</strong><span>TERRITORIES TO CAPTURE</span><div class="ticket-line"></div><small>BOSTON + 13 NEIGHBORING MUNICIPALITIES</small></div></section></template>
 <dialog id="challenge-dialog"><button class="close" aria-label="Close challenge">×</button><div id="challenge-content"></div></dialog>

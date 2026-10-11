@@ -3,6 +3,18 @@ import {parseCSV,readOwnership,readHistory,readTeams,owner,eligibility} from './
 import {stationDotSvg} from './dist/transit.js';
 const territories=JSON.parse(fs.readFileSync('dist/data/territories.json')),teams=JSON.parse(fs.readFileSync('dist/config.json')).teams;
 test('lock overrides original ownership',()=>assert.equal(owner({claimed:'Blue',locked:'Red'}),'Red'));
+test('renamed teams retain original claims and challenge history',()=>{
+  const renamed=readTeams('Team,Color,Enabled\nBlue,#2273E5,Yes\nRed,#EC4F39,Yes\nGreen,#25835B,Yes\nYellow,#F3CE3E,Yes');
+  const csv='Territory ID,Claimed By,Locked By\n'+territories.map(t=>`${t.id},Purple,yellow`).join('\n');
+  const ownership=readOwnership(csv,territories,renamed);
+  assert.deepEqual(ownership.milton,{claimed:'Yellow',locked:'Yellow'});
+  const history=readHistory('Team,Territory ID,Reveal Order,Status\nPurple,milton,1,Active',territories,renamed);
+  assert.equal(history[0].team,'Yellow');
+  assert.equal(eligibility(history,'Yellow','allston',true).allowed,false);
+  assert.equal(renamed[3].color,'#F3CE3E');
+  const later=readTeams('Team,Color,Enabled,Aliases\nBlue,#2273E5,Yes,\nRed,#EC4F39,Yes,\nGreen,#25835B,Yes,\nGold,#F3CE3E,Yes,Yellow');
+  assert.equal(readOwnership(csv,territories,later).milton.locked,'Gold');
+});
 test('team selector supports 2–4 teams and rejects broken settings',()=>{
   const names=['Blue','Red','Green','Purple','Orange','Teal','Pink','Gold'];
   const csv=count=>'team,color,enabled\n'+names.map((id,i)=>`${id},#2273E5,${i<count?'Yes':'No'}`).join('\n');
