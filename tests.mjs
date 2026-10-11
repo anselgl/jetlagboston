@@ -2,6 +2,50 @@ import {test} from 'node:test';import assert from 'node:assert/strict';import fs
 import {parseCSV,readOwnership,readHistory,readTeams,owner,eligibility} from './dist/game.js';
 import {stationDotSvg} from './dist/transit.js';
 const territories=JSON.parse(fs.readFileSync('dist/data/territories.json')),teams=JSON.parse(fs.readFileSync('dist/config.json')).teams;
+test('permanent IDs preserve game state across repeated renames and settings row reordering',()=>{
+ const settings=(name)=>`Team,Color,Enabled,Team ID\n${name},#F3CE3E,Yes,team-4\nBlue,#2273E5,Yes,team-1`;
+ const ownership='Territory ID,Claimed By,Locked By\n'+territories.map(t=>`${t.id},Team 4,team-4`).join('\n');
+ const history='Team,Territory ID,Reveal Order,Status,Team ID\nOld name,milton,1,Active,team-4';
+ for(const name of ['Purple','Yellow','Golden Geese']){
+  const ts=readTeams(settings(name));assert.equal(ts[0].id,'team-4');assert.equal(ts[0].name,name);
+  assert.equal(readOwnership(ownership,territories,ts).milton.locked,'team-4');
+  const records=readHistory(history,territories,ts);assert.equal(records[0].team,'team-4');
+  assert.equal(eligibility(records,'team-4','allston',true).allowed,false);
+ }
+});
+test('sheet errors identify the feed, data row, and field',()=>{
+ assert.throws(()=>readHistory('Team,Territory ID,Reveal Order,Status\nBlue,milton,1,Typo',territories,teams),/History, data row 2, Status/);
+ assert.throws(()=>readTeams('Team,Color,Enabled,Team ID\nBlue,blue,Yes,team-1'),/Team settings, data row 2, Color/);
+ assert.throws(()=>readOwnership('Territory ID,Claimed By,Locked By\nmilton,Typo,',territories,teams),/Ownership, data row 2, claimed_by/);
+});
+test('ownership errors point to the actual cell even when columns move',()=>{
+ const csv='Territory,Locked By,Territory ID,Claimed By\nMilton,,milton,Blie';
+ assert.throws(()=>readOwnership(csv,territories,teams),error=>error.message.includes('Ownership!D2 (Milton)')&&error.message.includes('"Blie"')&&error.message.includes('Choose a team from the dropdown'));
+ assert.throws(()=>readOwnership('Territory ID,Claimed By,Locked By\nmilton,,Typo',territories,teams),/Ownership!C2 \(Milton\)/);
+});
+test('Yellow is third and Green fourth with permanent identity preserved',()=>{
+ const ts=readTeams('Team,Color,Enabled,Slot,Team ID\nBlue,#2273E5,Yes,Blue,team-1\nRed,#EC4F39,Yes,Red,team-2\nYellow,#F3CE3E,Yes,Yellow,team-4\nGreen,#25835B,Yes,Green,team-3');
+ assert.deepEqual(ts.map(t=>t.name),['Blue','Red','Yellow','Green']);
+ const csv='Territory ID,Claimed By,Locked By\n'+territories.map(t=>`${t.id},Team 3,Team 4`).join('\n');
+ assert.deepEqual(readOwnership(csv,territories,ts).milton,{claimed:'team-4',locked:'team-3'});
+});
+test('Slot is the editable display name while IDs and old labels retain ownership',()=>{
+ const settings='Team,Color,Enabled,Aliases,Slot,Team ID\nBlue,#2273E5,Yes,,Ocean Otters,team-1\nRed,#EC4F39,Yes,,Red,team-2\nYellow,#F3CE3E,Yes,Golden Geese,Sunshine,team-4\nGreen,#25835B,Yes,,Green,team-3';
+ const ts=readTeams(settings);assert.deepEqual(ts.map(t=>t.name),['Ocean Otters','Red','Sunshine','Green']);
+ const csv='Territory ID,Claimed By,Locked By\n'+territories.map(t=>`${t.id},Blue,Golden Geese`).join('\n');
+ assert.deepEqual(readOwnership(csv,territories,ts).milton,{claimed:'team-1',locked:'team-4'});
+ const records=readHistory('Team,Territory ID,Reveal Order,Status,Team ID\nYellow,milton,1,Active,team-4',territories,ts);
+ assert.equal(eligibility(records,'team-4','allston',true).allowed,false);
+ assert.throws(()=>readTeams(settings.replace('Sunshine','Ocean Otters')),/Slot.*unique/);
+});
+test('explicit IDs reject damage instead of silently matching display names',()=>{
+ const settings='Team,Color,Enabled,Team ID\nBlue,#2273E5,Yes,team-1\nYellow,#F3CE3E,Yes,team-4';
+ const ts=readTeams(settings);
+ assert.throws(()=>readTeams(settings.replace('team-4','team-1')),/unique nonempty IDs/);
+ assert.throws(()=>readTeams(settings.replace('team-4','yellow')),/permanent ID/);
+ assert.throws(()=>readHistory('Team,Territory ID,Reveal Order,Status,Team ID\nBlue,milton,1,Active,',territories,ts),/History, data row 2, Team/);
+ assert.throws(()=>readTeams(settings.replace('Yellow','Team 1')),/Ambiguous team name/);
+});
 test('lock overrides original ownership',()=>assert.equal(owner({claimed:'Blue',locked:'Red'}),'Red'));
 test('renamed teams retain original claims and challenge history',()=>{
   const renamed=readTeams('Team,Color,Enabled\nBlue,#2273E5,Yes\nRed,#EC4F39,Yes\nGreen,#25835B,Yes\nYellow,#F3CE3E,Yes');
