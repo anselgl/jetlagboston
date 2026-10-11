@@ -1,6 +1,8 @@
 # Jetlag: Boston Blitz
 
-A phone-friendly, static territory game for friends, inspired by Jet Lag: The Game. Unaffiliated fan project. All 37 requested territories are included. This first version uses two sample teams, sample ownership, and explicitly marked demonstration challenges. Replace these before playing.
+A phone-friendly, static territory game for friends, inspired by Jet Lag: The Game. Unaffiliated fan project with 37 territories, 2–4 teams, and a publicly readable Google Sheet as the shared game record. The configured sheet supplies team names, colors, ownership, and challenge history. The spreadsheet template contains fictional ownership examples, and the challenge files are still demonstrations; replace these before playing.
+
+See the [player guide](docs/PLAYING.md) for the game flow and the [development guide](docs/DEVELOPMENT.md) for files, maintenance, and release checks.
 
 ## Preview
 
@@ -10,17 +12,29 @@ The MBTA lines button toggles subway, Mattapan trolley, Silver Line buses, and c
 
 Run `npm start`, then open http://127.0.0.1:4173. Run `npm test` for ownership, CSV, map coverage, and challenge-history checks. No build step or package installation is required. The map library is vendored; street tiles and optional web fonts need internet. System fonts work without the font service.
 
+## Current interface
+
+- The game board is the main view. Clean board has pale land, gray water, and faint grayscale streets, parks, and building detail. Detailed map shows more street and landmark context. Both share territory selection and game state.
+- MBTA lines toggles routes and station dots in either view. Hide icons hides territory names, claim dots, and lock icons while keeping territory fills, boundaries, and the MBTA overlay available. These choices last for the page session.
+- Locked territories have a lock icon and thicker outlines; selecting any territory makes its outline darker and thicker.
+- Territories lists all neighborhoods and municipalities together alphabetically. Unclaimed, Claimed, and Locked filters accept any combination. Claimed means claimed but not locked. All three start selected; filters survive sheet refreshes, but reset when the page reloads.
+- The green territory panel collapses using the right-aligned arrow beside its heading. When collapsed it reads “Show territory panel.” Selecting a territory reopens it to show challenge and Google Maps actions.
+- Scorecards show team names and locked/claimed counts at the same 18px size, with the colored dot beside the team name. Scores currently count territories, including both claimed and locked territory.
+- The challenge confirmation dialog uses large checkboxes and text, a team-colored dropdown with a pale fill, a prominent open-card button, and readable red eligibility warnings. Both confirmations and shared-history eligibility are required to open a new card.
+- At widths of 650px or less, the logo and sheet button share a compact header, the map controls move below the map, and the territory panel stacks above the two-column scoreboard. Larger screens use the desktop arrangement. No separate mobile site is required.
+- The supplied ticket artwork is in `dist/assets/boston-blitz-logo.svg` and embedded in the header; CSS adds a 2° counterclockwise rotation with uniform sizing.
+
 ## Google Sheets setup
 
 Recommended: import `dist/templates/Jetlag-Boston-Blitz-37-Territories.xlsx` into a NEW blank Google spreadsheet using File → Import → Upload → Replace spreadsheet. It includes all 37 territories including Milton and Longwood, four team tabs, automatic History, dropdowns, and warnings. Player fields appear first; IDs and dropdown helpers are hidden on the right. Headers accept capitalization, spaces, hyphens, and underscores; column order is flexible. The example uses four enabled teams and 10 fictional claims or locks. Before playing, clear Ownership!B2:C38 and choose 2–4 teams in Setup!B3. Share with players as Editors and provide the new link to connect Ownership, History, and Teams. After import, check dropdowns, formulas, and hidden columns; Google conversion has not yet been verified. Edit only yellow cells. Keep History automatic and preserve hidden IDs.
 
 The CSV-only alternative below is available if you prefer a minimal sheet:
 
-1. Create a sheet and import `sheets/Ownership.csv` into an Ownership tab. Keep the header names unchanged. Give only players editing access.
-2. Use dropdowns for `claimed_by` and `locked_by` with Blue, Red, and blank. Team IDs must match `dist/config.json` exactly. The map owner is locked_by when populated, otherwise claimed_by.
+1. Create a sheet and import `sheets/Ownership.csv` into an Ownership tab. Preserve the territory IDs. Headers accept capitalization and spaces in place of underscores. Give only players editing access.
+2. Use dropdowns for `claimed_by` and `locked_by` with enabled team names and blank. Without a Teams feed, names come from `dist/config.json`; with one, use the Teams tab. Team matching ignores capitalization and supports the aliases described below. The map owner is locked_by when populated, otherwise claimed_by.
 3. Import `sheets/Team-history.csv` into a History tab. Filter by team or duplicate filtered records into separate team tabs. Use statuses Not opened, Active, Succeeded, Failed, Abandoned. Assign a unique increasing reveal_order when opening a challenge. Retrying never changes that order.
 4. Add an active-count warning for each team: `=IF(COUNTIFS(History!A2:A,"Blue",History!D2:D,"Active")>1,"WARNING: Multiple active challenges","OK")`. If using individual team tabs with the same columns, use `=IF(COUNTIF(D2:D,"Active")>1,"WARNING: Multiple active challenges","OK")` in a separate cell outside the data table. Use conditional formatting for a red warning. Add a warning for duplicate reveal orders if desired.
-5. Publish the Ownership tab to the web as CSV. Set its published CSV URL in `dist/config.json` as ownershipCsvUrl, and the editable sheet link as sheetUrl. Publishing data does not grant editing access. Publish a combined History tab as CSV to enable historyCsvUrl checks on the site. For separate team tabs, build the combined History tab with a formula such as `={Blue!A1:D1;FILTER(Blue!A2:D,Blue!A2:A<>"");FILTER(Red!A2:D,Red!A2:A<>"")}`. Keep published tabs free of unrelated warning cells/columns.
+5. Connect publicly readable CSV feeds in `dist/config.json`: `ownershipCsvUrl`, `historyCsvUrl`, and, when present, `teamsCsvUrl`. Set `sheetUrl` to the editable sheet link. The current configuration uses Google Sheets `gviz` CSV URLs with the tab name; a sheet shared for public viewing supports this method. Published-to-web CSV URLs are an alternative. Reading or publishing data does not grant editing access. For separate team tabs, build the combined History tab with a formula such as `={Blue!A1:D1;FILTER(Blue!A2:D,Blue!A2:A<>"");FILTER(Red!A2:D,Red!A2:A<>"")}`. Keep feed tabs free of unrelated warning rows.
 6. The site polls every 30 seconds. Google's published feeds can be cached; this is not guaranteed instant synchronization. Test an edit before playing. Invalid feeds retain the last good board and display an error. On first-load failure with a configured feed, no live game data is loaded and no demo claims are shown.
 
 All game writes happen in Google Sheets. Revealing a card on the site does not write to the sheet. Players record reveals and outcomes themselves. Without historyCsvUrl, challenge eligibility remains entirely on the honor system; with it, the reveal gate also checks the last loaded shared history.
@@ -44,7 +58,7 @@ Draft game polygons come from Boston's Boston in Context by Neighborhood 2025 ge
 - MassGIS documentation: https://www.mass.gov/info-details/massgis-data-municipalities
 - Leaflet 1.9.4: https://leafletjs.com (BSD-2-Clause; license in dist/LEAFLET-LICENSE.txt)
 - Detailed map: OpenStreetMap raster tiles with saturation reduced to 55%, slightly brighter tones and softer contrast. The CSS filter affects only the basemap; team territory colors retain their saturation.
-- Clean board: Esri World Terrain Base tiles in grayscale (max native zoom 13; overzoom allowed to 19), without a reference label layer. Minimal coast and land context keeps territory names prominent. Attribution: Esri, USGS, NOAA. Bold interactive territory labels use polygon centers; overlapping labels hide until zooming in. All territory dots remain visible. Map selection, zoom and game data are shared between both views. View preference is session-only; no extra device storage.
+- Clean board: local MassGIS land polygons beneath Esri World Light Gray Base tiles at 65% opacity (max native zoom 16; overzoom allowed to 19). Terrain shading has been removed. The grayscale background includes faint streets, parks, and building detail as you zoom in. Attribution is shown on the map. Bold interactive territory labels use polygon centers, with an explicit geometric centroid for Everett; overlapping labels hide until zooming in. Territory dots remain visible unless Hide icons is enabled. Map selection, zoom and game data are shared between both views. View preference is session-only; no extra device storage.
 
 ## GitHub Pages
 
@@ -54,7 +68,7 @@ Repository: https://github.com/anselgl/jetlagboston. Development updates are on 
 
 ## Connected game sheet
 
-`dist/config.json` points to the replacement Google Sheet that includes Longwood. All three public feeds were verified October 10, 2026: 37 territories, four enabled teams, and 148 challenge-history rows. The template currently contains 10 sample claims or locks and no active challenges. The local board successfully loaded the sheet. Keep public viewing enabled and player editing restricted. The website polls every 30 seconds, although Google may cache responses. Keep the Ownership, History, and Teams tab names unchanged.
+`dist/config.json` points to the replacement Google Sheet that includes Longwood. All three public feeds were verified October 10, 2026: 37 territories, four enabled teams, and 148 challenge-history rows. This describes that verification snapshot; current ownership and names follow subsequent sheet edits. Keep public viewing enabled and player editing restricted. The website polls every 30 seconds, although Google may cache responses. Keep the Ownership, History, and Teams tab names unchanged.
 
 ## Team count
 
@@ -64,7 +78,7 @@ The website reads `teamsCsvUrl` on every refresh, then validates Ownership and H
 
 The currently configured sheet is https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/edit. Teams is required for this workbook (teamsFeedOptional=false). Setup!B3 controls the enabled team count through the Teams tab; the website rereads it every 30 seconds.
 
-The board opens directly on the map with a compact heading and a miniature ticket logo. The former intro artwork remains in the inert `intro-artwork` HTML template. Scores and sheet/device controls follow the board. Selection emphasizes only the territory outline, with no rectangular label or polygon focus border.
+The board opens directly on the map with a compact heading and the updated ticket logo. The former intro artwork remains in the inert `intro-artwork` HTML template. Scores and sheet/device controls follow the board. Selection emphasizes only the territory outline, with no rectangular label or polygon focus border.
 Milton is a whole municipality using the same MassGIS layer. The new template includes Milton and Longwood in Ownership and all four team tabs, with 148 combined History rows when four teams are enabled.
 
 The clean board uses `data/clean-land.geojson`, a MassGIS municipal polygon snapshot (351 towns, simplified to 0.00003 degrees) from the same municipal service above. It provides pale land over gray water beneath a 65% opacity Esri World Light Gray Base layer, adding faint grayscale streets, parks, and building detail without terrain shading. Refresh this snapshot independently of the game territory boundaries.
