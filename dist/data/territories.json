@@ -49,7 +49,7 @@
   },
   {
     "id": "chinatown-leather-district",
-    "name": "Chinatown–Leather District",
+    "name": "Chinatown",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/chinatown-leather-district.md",
     "retryable": true,
@@ -85,7 +85,7 @@
     "kind": "Boston neighborhood",
     "challengePath": "challenges/fenway-kenmore.md",
     "retryable": true,
-    "boundaryNote": "Draft: Fenway and Longwood combined; review Kenmore coverage."
+    "boundaryNote": "Draft: Fenway boundary; Longwood is a separate territory. Review Kenmore coverage."
   },
   {
     "id": "hyde-park",
@@ -276,6 +276,22 @@
     "name": "Winthrop",
     "kind": "Municipality",
     "challengePath": "challenges/winthrop.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "milton",
+    "name": "Milton",
+    "kind": "Municipality",
+    "challengePath": "challenges/milton.md",
+    "retryable": true,
+    "boundaryNote": "Draft geographic boundary; review against Google Maps."
+  },
+  {
+    "id": "longwood",
+    "name": "Longwood",
+    "kind": "Boston neighborhood",
+    "challengePath": "challenges/longwood.md",
     "retryable": true,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   }

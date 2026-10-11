@@ -1,1 +1,19 @@
-{"sheetUrl":"https://docs.google.com/spreadsheets/d/1t-JkXsz68wCHyO8BxbdV8Pi0MQ1HZLmh6PTihEMEXMQ/edit","ownershipCsvUrl":"https://docs.google.com/spreadsheets/d/1t-JkXsz68wCHyO8BxbdV8Pi0MQ1HZLmh6PTihEMEXMQ/gviz/tq?tqx=out%3Acsv&sheet=Ownership","historyCsvUrl":"https://docs.google.com/spreadsheets/d/1t-JkXsz68wCHyO8BxbdV8Pi0MQ1HZLmh6PTihEMEXMQ/gviz/tq?tqx=out%3Acsv&sheet=History","refreshSeconds":30,"teams":[{"id":"Blue","color":"#2273e5"},{"id":"Red","color":"#ec4f39"}],"title":"Boston Showdown"}
+{
+  "sheetUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/edit",
+  "ownershipCsvUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/gviz/tq?tqx=out%3Acsv&sheet=Ownership",
+  "historyCsvUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/gviz/tq?tqx=out%3Acsv&sheet=History",
+  "refreshSeconds": 30,
+  "teams": [
+    {
+      "id": "Blue",
+      "color": "#2273e5"
+    },
+    {
+      "id": "Red",
+      "color": "#ec4f39"
+    }
+  ],
+  "title": "Jetlag: Boston Blitz",
+  "teamsCsvUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/gviz/tq?tqx=out%3Acsv&sheet=Teams",
+  "teamsFeedOptional": false
+}

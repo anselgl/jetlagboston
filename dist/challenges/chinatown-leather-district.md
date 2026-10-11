@@ -2,7 +2,7 @@
 
 DEMO CHALLENGE — replace before playing.
 
-Find a publicly accessible sign bearing the name of Chinatown–Leather District. Take a team photo with the sign while standing outdoors inside the game boundary.
+Find a publicly accessible sign bearing the name of Chinatown. Take a team photo with the sign while standing outdoors inside the game boundary.
 
 ## Proof
 One photo showing the team and the neighborhood or municipality name. Record completion in your team sheet.
