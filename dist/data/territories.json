@@ -4,7 +4,7 @@
     "name": "Allston",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/allston.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -12,7 +12,7 @@
     "name": "Back Bay",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/back-bay.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -20,7 +20,7 @@
     "name": "Bay Village",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/bay-village.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -28,7 +28,7 @@
     "name": "Beacon Hill",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/beacon-hill.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -36,7 +36,7 @@
     "name": "Brighton",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/brighton.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -44,7 +44,7 @@
     "name": "Charlestown",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/charlestown.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -52,7 +52,7 @@
     "name": "Chinatown",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/chinatown-leather-district.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -60,7 +60,7 @@
     "name": "Dorchester",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/dorchester.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -68,7 +68,7 @@
     "name": "Downtown",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/downtown.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -76,7 +76,7 @@
     "name": "East Boston",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/east-boston.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -84,7 +84,7 @@
     "name": "Fenway–Kenmore",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/fenway-kenmore.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft: Fenway boundary; Longwood is a separate territory. Review Kenmore coverage."
   },
   {
@@ -92,7 +92,7 @@
     "name": "Hyde Park",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/hyde-park.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -100,7 +100,7 @@
     "name": "Jamaica Plain",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/jamaica-plain.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -108,7 +108,7 @@
     "name": "Mattapan",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/mattapan.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -116,7 +116,7 @@
     "name": "Mission Hill",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/mission-hill.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -124,7 +124,7 @@
     "name": "North End",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/north-end.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -132,7 +132,7 @@
     "name": "Roslindale",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/roslindale.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -140,7 +140,7 @@
     "name": "Roxbury",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/roxbury.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -148,7 +148,7 @@
     "name": "South Boston",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/south-boston.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -156,7 +156,7 @@
     "name": "South End",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/south-end.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -164,7 +164,7 @@
     "name": "West End",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/west-end.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -172,7 +172,7 @@
     "name": "West Roxbury",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/west-roxbury.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -180,7 +180,7 @@
     "name": "Seaport",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/seaport.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft: Boston South Boston Waterfront boundary; review against Google Maps."
   },
   {
@@ -188,7 +188,7 @@
     "name": "Cambridge",
     "kind": "Municipality",
     "challengePath": "challenges/cambridge.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -196,7 +196,7 @@
     "name": "Somerville",
     "kind": "Municipality",
     "challengePath": "challenges/somerville.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -204,7 +204,7 @@
     "name": "Everett",
     "kind": "Municipality",
     "challengePath": "challenges/everett.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -212,7 +212,7 @@
     "name": "Chelsea",
     "kind": "Municipality",
     "challengePath": "challenges/chelsea.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -220,7 +220,7 @@
     "name": "Revere",
     "kind": "Municipality",
     "challengePath": "challenges/revere.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -228,7 +228,7 @@
     "name": "Malden",
     "kind": "Municipality",
     "challengePath": "challenges/malden.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -236,7 +236,7 @@
     "name": "Medford",
     "kind": "Municipality",
     "challengePath": "challenges/medford.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -244,7 +244,7 @@
     "name": "Brookline",
     "kind": "Municipality",
     "challengePath": "challenges/brookline.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -252,7 +252,7 @@
     "name": "Newton",
     "kind": "Municipality",
     "challengePath": "challenges/newton.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -260,7 +260,7 @@
     "name": "Quincy",
     "kind": "Municipality",
     "challengePath": "challenges/quincy.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -268,7 +268,7 @@
     "name": "Braintree",
     "kind": "Municipality",
     "challengePath": "challenges/braintree.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -276,7 +276,7 @@
     "name": "Winthrop",
     "kind": "Municipality",
     "challengePath": "challenges/winthrop.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -284,7 +284,7 @@
     "name": "Milton",
     "kind": "Municipality",
     "challengePath": "challenges/milton.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   },
   {
@@ -292,7 +292,7 @@
     "name": "Longwood",
     "kind": "Boston neighborhood",
     "challengePath": "challenges/longwood.md",
-    "retryable": true,
+    "retryable": false,
     "boundaryNote": "Draft geographic boundary; review against Google Maps."
   }
 ]

@@ -33,3 +33,4 @@
 .score .score-name{display:flex;align-items:center;gap:9px}.score .score-name .dot{flex:none}
 
 .sheet-error{border:2px solid #b63829;border-radius:4px;background:#fff1ec;padding:16px 20px;margin-bottom:16px;color:#53231b;overflow-wrap:anywhere}.sheet-error[hidden]{display:none}.sheet-error strong{font-size:20px}.sheet-error p{margin:8px 0;font-size:16px;line-height:1.5}.sheet-error a{font-weight:700;text-decoration:underline}
+.directory-separator{display:inline-block;margin-inline:12px}

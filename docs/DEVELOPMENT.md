@@ -24,7 +24,7 @@ The server runs at http://127.0.0.1:4173 and serves `dist` directly. There is no
 | `dist/mobile.css` | Final mobile overrides; loaded after shared styles |
 | `dist/transit.js` | Station-dot SVG rendering |
 | `dist/config.json` | Sheet links, CSV feeds, refresh interval, and fallback teams |
-| `dist/data/territories.json` | Stable territory IDs, displayed names, challenge paths, and retry settings |
+| `dist/data/territories.json` | Stable territory IDs, displayed names, challenge paths, and legacy retry flags |
 | `dist/data/territories.geojson` | Playable territory polygons and Everett's label center |
 | `dist/data/clean-land.geojson` | Separate MassGIS land/coast background snapshot |
 | `dist/data/mbta-routes.geojson`, `mbta-stations.geojson` | Bundled transit reference snapshots |
@@ -52,11 +52,13 @@ Clean board combines pale local land polygons, gray water, and Esri World Light 
 
 The mobile breakpoint is 650px. Mobile uses a compact logo/header, places map controls below the map, and stacks the collapsible territory panel above two-column scores. Native `details`/`summary` controls panel expansion. Selecting a territory opens it; sheet refreshes preserve its current expansion state. Score names and status counts are both 18px, with dots inside the name row.
 
+Selecting a territory on mobile scrolls to the route-reference/schedules line when MBTA routes are visible, or to the Unclaimed/Claimed/Locked legend otherwise. A 16px scroll margin leaves context above the territory details without adding layout spacing. Map zoom behavior stays the same.
+
 Before releasing a layout change, check a phone-sized viewport and desktop: map switching, MBTA and icon toggles, panel collapse/reopen, alphabetical filters, score readability, and the challenge confirmation dialog. Confirm the dropdown changes colors with the team selection and that both confirmations are needed. Do not open a card or write live sheet records merely to test presentation.
 
 ## Updating data and challenges
 
-Challenge files support a small Markdown subset: a `# Title`, paragraphs, and `## Section headings`. Set retryability in `territories.json`. Replace demonstration cards before a real game. Public static hosting cannot keep their contents secret.
+Challenge files support a small Markdown subset: a `# Title`, paragraphs, and `## Section headings`. No challenge retries are allowed; legacy retryable flags are ignored by eligibility and kept false. Replace demonstration cards before a real game. Public static hosting cannot keep their contents secret.
 
 `prepare-data.mjs` rebuilds territory data from bundled geographic sources. It also rewrites the CSV templates and creates missing demonstration cards, so review its outputs before running or committing it. It is not a routine preview/build command. Review source-specific adjustments, especially Longwood, Chinatown's dissolved boundary, Seaport, and Everett's centroid.
 
@@ -73,3 +75,5 @@ Pushing a commit does not publish the website. `.github/workflows/pages.yml` is 
 When the team feed includes Slot, it supplies the display name. Team, original color names and saved Aliases remain accepted as prior labels, while permanent IDs continue to drive game state. See [the owner-installed synchronization script](TEAM-NAME-SYNC.md) for updating old Google Sheets dropdown selections on repeated renames. The script is optional for current color labels; automatic propagation requires owner installation and Google authorization.
 
 Sheet failures appear in a red alert banner above every view. Ownership team validation includes the exact column and row, territory, and invalid name. Last-good data is retained as one snapshot; the banner labels it stale until all feeds validate again.
+
+The territory directory starts collapsed on desktop and mobile, with “Where to? Show territory panel” and a right-aligned arrow. Clicking the summary toggles it; selecting a territory still opens it automatically.

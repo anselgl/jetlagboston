@@ -27,7 +27,7 @@ The map and scores use Locked by when present; otherwise they use Claimed by. Cu
 
 The site checks the most recently loaded history. An unresolved active challenge elsewhere, multiple active challenges, a prohibited retry, or another team's lock blocks the reveal. Refresh the site after correcting the sheet if needed.
 
-Retry a failed or abandoned challenge only when the card permits it and you have not opened any later challenge. Preserve its original reveal order when retrying. Viewing a previously revealed card for reference does not reactivate a challenge.
+Each challenge has one attempt. Failed or abandoned challenges cannot be retried. Viewing a previously revealed card for reference does not reactivate a challenge.
 
 ## Using the board
 
