@@ -76,4 +76,9 @@ When the team feed includes Slot, it supplies the display name. Team, original c
 
 Sheet failures appear in a red alert banner above every view. Ownership team validation includes the exact column and row, territory, and invalid name. Last-good data is retained as one snapshot; the banner labels it stale until all feeds validate again.
 
-The territory directory starts collapsed on desktop and mobile, with “Where to? Show territory panel” and a right-aligned arrow. Clicking the summary toggles it; selecting a territory still opens it automatically.
+The territory directory starts open on desktop and collapsed on mobile (650px or less), with “Where to? · Show territory panel” and a right-aligned arrow when collapsed. The default is applied once at page initialization; manual toggles are preserved through sheet refreshes. Clicking the summary toggles it; selecting a territory still opens it automatically.
+## Home-screen icons and sheet button
+
+The Apple home-screen icon is an opaque 180px PNG rendered from `dist/assets/apple-touch-icon.svg`: yellow to the edges, with symmetric tall, shallow dark green notches. Its artwork is separate from the transparent browser favicon. Keep the square export unmasked; iOS applies its own rounded corners. The suggested Apple home-screen name is `Jetlag: Boston`. Increment the icon URL query version when replacing artwork; existing home-screen shortcuts may need to be removed and added again.
+
+The header's Open Game Sheet button uses the ticket yellow and dark text, without an arrow. Its dark border is 2px on desktop and 1.875px at the mobile breakpoint.
