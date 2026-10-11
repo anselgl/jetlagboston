@@ -7,26 +7,62 @@ export function parseCSV(text){
 }
 function teamLookup(teams){
   const lookup=new Map();
-  for(const team of teams)for(const name of [team.id,...(team.aliases||[])]){
+  for(const team of teams)for(const name of [team.id,team.name,...(team.aliases||[])].filter(Boolean)){
     const key=name.toLowerCase();
     if(lookup.has(key)&&lookup.get(key)!==team.id)throw Error('Ambiguous team name: '+name);
     lookup.set(key,team.id);
   }
   return lookup;
 }
-export function readOwnership(text,territories,teams){const {headers,rows}=parseCSV(text);for(const key of ['territory_id','claimed_by','locked_by'])if(!headers.includes(key))throw Error('Missing ownership column: '+key);const ids=new Set(territories.map(t=>t.id)),valid=teamLookup(teams);const state={};for(const r of rows){if(!ids.has(r.territory_id))throw Error('Unknown territory: '+r.territory_id);if(state[r.territory_id])throw Error('Duplicate territory: '+r.territory_id);for(const k of ['claimed_by','locked_by'])if(r[k]){const team=valid.get(r[k].toLowerCase());if(!team)throw Error('Unknown team: '+r[k]);r[k]=team;}state[r.territory_id]={claimed:r.claimed_by,locked:r.locked_by};}if(Object.keys(state).length!==territories.length)throw Error('Ownership sheet must contain every territory');return state;}
-export function readHistory(text,territories,teams){const {headers,rows}=parseCSV(text);for(const key of ['team','territory_id','reveal_order','status'])if(!headers.includes(key))throw Error('Missing history column: '+key);const ids=new Set(territories.map(t=>t.id)),valid=teamLookup(teams),seen=new Set(),orders=new Set();for(const r of rows){r.team=valid.get(r.team.toLowerCase());if(!r.team||!ids.has(r.territory_id))throw Error('Unknown history team or territory');const key=r.team+'/'+r.territory_id;if(seen.has(key))throw Error('Duplicate team/territory history row');seen.add(key);if(!['Not opened','Active','Succeeded','Failed','Abandoned'].includes(r.status))throw Error('Invalid challenge status');if(r.status==='Not opened'){if(r.reveal_order)throw Error('Unopened challenge has a reveal order');}else{if(!/^[1-9]\d*$/.test(r.reveal_order))throw Error('Opened challenge needs a positive reveal order');const order=r.team+'/'+r.reveal_order;if(orders.has(order))throw Error('Duplicate reveal order for a team');orders.add(order);}r.order=Number(r.reveal_order)||0;}return rows;}
+function feed(text,label){try{return parseCSV(text);}catch(e){throw Error(label+': '+e.message);}}
+function required(headers,keys,label){for(const key of keys)if(!headers.includes(key))throw Error(label+': missing column '+key);}
+function invalid(label,row,field,message){throw Error(`${label}, data row ${row+2}, ${field}: ${message}`);}
+export function readOwnership(text,territories,teams){
+ const {headers,rows}=feed(text,'Ownership');required(headers,['territory_id','claimed_by','locked_by'],'Ownership');
+ const ids=new Set(territories.map(t=>t.id)),valid=teamLookup(teams),state={};
+ for(const [i,r] of rows.entries()){
+  if(!ids.has(r.territory_id))invalid('Ownership',i,'Territory ID','Unknown territory: '+r.territory_id);
+  if(state[r.territory_id])invalid('Ownership',i,'Territory ID','Duplicate territory: '+r.territory_id);
+  for(const k of ['claimed_by','locked_by'])if(r[k]){
+   const team=valid.get(r[k].toLowerCase());if(!team){const column=headers.indexOf(k)+1;let n=column,letter='';while(n){n--;letter=String.fromCharCode(65+n%26)+letter;n=Math.floor(n/26);}const territory=territories.find(t=>t.id===r.territory_id);invalid('Ownership',i,k,`Unknown team "${r[k]}" in Ownership!${letter}${i+2} (${territory.name}). Choose a team from the dropdown or clear this cell. Recognized teams: ${teams.map(t=>t.name||t.id).join(', ')}.`);}r[k]=team;
+  }
+  state[r.territory_id]={claimed:r.claimed_by,locked:r.locked_by};
+ }
+ const missing=territories.filter(t=>!state[t.id]);if(missing.length)throw Error('Ownership sheet must contain every territory; missing: '+missing.map(t=>t.name).join(', '));return state;
+}
+export function readHistory(text,territories,teams){
+ const {headers,rows}=feed(text,'History');required(headers,['territory_id','reveal_order','status'],'History');
+ if(!headers.includes('team_id')&&!headers.includes('team'))throw Error('History: missing column Team ID or Team');
+ const ids=new Set(territories.map(t=>t.id)),valid=teamLookup(teams),seen=new Set(),orders=new Set();
+ for(const [i,r] of rows.entries()){
+  const value=headers.includes('team_id')?r.team_id:r.team;r.team=valid.get(value.toLowerCase());
+  if(!r.team)invalid('History',i,'Team','Unknown history team: '+value);
+  if(!ids.has(r.territory_id))invalid('History',i,'Territory ID','Unknown history territory: '+r.territory_id);
+  const key=r.team+'/'+r.territory_id;if(seen.has(key))invalid('History',i,'Territory ID','Duplicate team/territory history row');seen.add(key);
+  if(!['Not opened','Active','Succeeded','Failed','Abandoned'].includes(r.status))invalid('History',i,'Status','Invalid challenge status: '+r.status);
+  if(r.status==='Not opened'){if(r.reveal_order)invalid('History',i,'Reveal Order','Unopened challenge has a reveal order');}
+  else{
+   if(!/^[1-9]\d*$/.test(r.reveal_order))invalid('History',i,'Reveal Order','Opened challenge needs a positive reveal order');
+   const order=r.team+'/'+r.reveal_order;if(orders.has(order))invalid('History',i,'Reveal Order','Duplicate reveal order for a team');orders.add(order);
+  }r.order=Number(r.reveal_order)||0;
+ }return rows;
+}
 export function owner(state){return state?.locked||state?.claimed||'';}
 export function readTeams(text){
-  const {headers,rows}=parseCSV(text);
-  for(const key of ['team','color','enabled'])if(!headers.includes(key))throw Error('Missing Teams column: '+key);
-  const ids=new Set(),active=[];
+  const {headers,rows}=feed(text,'Team settings');
+  required(headers,['team','color','enabled'],'Team settings');
+  const ids=new Set(),names=new Set(),active=[];
   for(const [index,row] of rows.entries()){
-    if(!row.team||ids.has(row.team.toLowerCase()))throw Error('Teams need unique nonempty IDs');ids.add(row.team.toLowerCase());
-    if(!/^#[a-f0-9]{6}$/i.test(row.color))throw Error('Invalid team color: '+row.team);
-    if(!['yes','no'].includes(row.enabled.toLowerCase()))throw Error('Team enabled must be Yes or No');
-    // Template rows stay in Blue, Red, Green, Purple order; preserve their original records after a rename.
-    if(row.enabled.toLowerCase()==='yes')active.push({id:row.team,color:row.color,aliases:[["Blue","Red","Green","Purple"][index],...(row.aliases||"").split("|")].map(name=>name?.trim()).filter(Boolean)});
+    const id=headers.includes('team_id')?row.team_id:row.team;
+    const name=headers.includes('slot')?row.slot:row.team;
+    if(headers.includes('team_id')&&!/^team-[1-4]$/.test(id))invalid('Team settings',index,'Team ID','Keep the permanent ID team-1, team-2, team-3, or team-4');
+    if(!id||ids.has(id.toLowerCase()))invalid('Team settings',index,'Team ID','Teams need unique nonempty IDs');ids.add(id.toLowerCase());
+    if(!name||names.has(name.toLowerCase()))invalid('Team settings',index,headers.includes('slot')?'Slot':'Team','Teams need unique nonempty names');names.add(name.toLowerCase());
+    if(!/^#[a-f0-9]{6}$/i.test(row.color))invalid('Team settings',index,'Color','Invalid team color: '+row.team+'; use #RRGGBB');
+    if(!['yes','no'].includes(row.enabled.toLowerCase()))invalid('Team settings',index,'Enabled','Team enabled must be Yes or No');
+    // New sheets use permanent slots; legacy sheets preserve the original row-based aliases.
+    const slot=/^team-[1-4]$/.test(id)?Number(id.slice(-1))-1:index;
+    if(row.enabled.toLowerCase()==='yes')active.push({id,name,color:row.color,aliases:[row.team,["Blue","Red","Green","Purple"][slot],headers.includes('team_id')?'Team '+(headers.includes('slot')?index+1:slot+1):null,...(row.aliases||"").split("|")].map(name=>name?.trim()).filter(Boolean)});
   }
   if(active.length<2||active.length>4)throw Error('Enable between 2 and 4 teams');
   teamLookup(active);return active;

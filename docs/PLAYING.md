@@ -5,7 +5,7 @@ The website is your map and challenge viewer. Google Sheets is the shared record
 ## Before starting
 
 1. Have the organizer replace every demonstration challenge and review all territory boundaries.
-2. Use the [37-territory workbook](../dist/templates/Jetlag-Boston-Blitz-37-Territories.xlsx), choose 2–4 teams in Setup!B3, and set team names and hexadecimal colors on Teams. See the [README](../README.md#team-count) for renaming rules.
+2. Use the [compact 37-territory workbook](../dist/templates/Jetlag-Boston-Blitz-Compact-Template.xlsx), choose 2–4 teams in Instructions!B33, and set team names and hexadecimal colors in Instructions!A38:B41. See [the compact sheet guide](COMPACT-SHEET.md) for import and connection details. See the [README](../README.md#team-count) for renaming rules.
 3. Clear the fictional Claimed by and Locked by values. Reset each team's challenge rows to Not opened with blank reveal orders. Keep the combined History tab automatic and preserve hidden territory IDs.
 4. Confirm that every player can edit the sheet, the website loads the public feeds, and an ownership edit appears after refreshing. Google may delay updates.
 

@@ -1,7 +1,7 @@
 {
-  "sheetUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/edit",
-  "ownershipCsvUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/gviz/tq?tqx=out%3Acsv&sheet=Ownership",
-  "historyCsvUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/gviz/tq?tqx=out%3Acsv&sheet=History",
+  "sheetUrl": "https://docs.google.com/spreadsheets/d/18C68PbYca263Ttn2C5XerPtxhUy82PFIAbnAcxfqL-E/edit",
+  "ownershipCsvUrl": "https://docs.google.com/spreadsheets/d/18C68PbYca263Ttn2C5XerPtxhUy82PFIAbnAcxfqL-E/gviz/tq?tqx=out%3Acsv&sheet=Ownership&headers=1",
+  "historyCsvUrl": "https://docs.google.com/spreadsheets/d/18C68PbYca263Ttn2C5XerPtxhUy82PFIAbnAcxfqL-E/gviz/tq?tqx=out%3Acsv&sheet=History&headers=1",
   "refreshSeconds": 30,
   "teams": [
     {
@@ -14,6 +14,6 @@
     }
   ],
   "title": "Jetlag: Boston Blitz",
-  "teamsCsvUrl": "https://docs.google.com/spreadsheets/d/1ncpb1SZzketRTt1fFNixj-M2asE-yPUt2hgpm_z3vXE/gviz/tq?tqx=out%3Acsv&sheet=Teams",
+  "teamsCsvUrl": "https://docs.google.com/spreadsheets/d/18C68PbYca263Ttn2C5XerPtxhUy82PFIAbnAcxfqL-E/gviz/tq?tqx=out%3Acsv&sheet=Instructions&range=A37%3AF41&headers=1",
   "teamsFeedOptional": false
 }
