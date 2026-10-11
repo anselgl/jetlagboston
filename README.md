@@ -18,11 +18,12 @@ Run `npm start`, then open http://127.0.0.1:4173. Run `npm test` for ownership, 
 - MBTA lines toggles routes and station dots in either view. Hide icons hides territory names, claim dots, and lock icons while keeping territory fills, boundaries, and the MBTA overlay available. These choices last for the page session.
 - Locked territories have a lock icon and thicker outlines; selecting any territory makes its outline darker and thicker.
 - Territories lists all neighborhoods and municipalities together alphabetically. Unclaimed, Claimed, and Locked filters accept any combination. Claimed means claimed but not locked. All three start selected; filters survive sheet refreshes, but reset when the page reloads.
-- The green territory panel collapses using the right-aligned arrow beside its heading. When collapsed it reads “Show territory panel.” Selecting a territory reopens it to show challenge and Google Maps actions.
+- The green territory panel collapses using the right-aligned arrow beside its heading. It starts collapsed and reads “Where to? Show territory panel.” Selecting a territory reopens it to show challenge and Google Maps actions.
 - Scorecards show team names and locked/claimed counts at the same 18px size, with the colored dot beside the team name. Scores currently count territories, including both claimed and locked territory.
 - The challenge confirmation dialog uses large checkboxes and text, a team-colored dropdown with a pale fill, a prominent open-card button, and readable red eligibility warnings. Both confirmations and shared-history eligibility are required to open a new card.
 - At widths of 650px or less, the logo and sheet button share a compact header, the map controls move below the map, and the territory panel stacks above the two-column scoreboard. Larger screens use the desktop arrangement. No separate mobile site is required.
 - The supplied ticket artwork is in `dist/assets/boston-blitz-logo.svg` and embedded in the header; CSS adds a 2° counterclockwise rotation with uniform sizing.
+- Browser tabs use the supplied artwork in `dist/assets/favicon.svg`, with an ICO fallback and a 192px PNG for mobile browsers. `dist/assets/apple-touch-icon.png` provides the 180px iPhone/iPad home-screen icon. These icons preserve the artwork's proportions and are separate from the header logo.
 
 ## Google Sheets setup
 
@@ -32,7 +33,7 @@ The CSV-only alternative below is available if you prefer a minimal sheet:
 
 1. Create a sheet and import `sheets/Ownership.csv` into an Ownership tab. Preserve the territory IDs. Headers accept capitalization and spaces in place of underscores. Give only players editing access.
 2. Use dropdowns for `claimed_by` and `locked_by` with enabled team names and blank. Without a Teams feed, names come from `dist/config.json`; with one, use the Teams tab. Team matching ignores capitalization and supports the aliases described below. The map owner is locked_by when populated, otherwise claimed_by.
-3. Import `sheets/Team-history.csv` into a History tab. Filter by team or duplicate filtered records into separate team tabs. Use statuses Not opened, Active, Succeeded, Failed, Abandoned. Assign a unique increasing reveal_order when opening a challenge. Retrying never changes that order.
+3. Import `sheets/Team-history.csv` into a History tab. Filter by team or duplicate filtered records into separate team tabs. Use statuses Not opened, Active, Succeeded, Failed, Abandoned. Assign a unique increasing reveal_order when opening a challenge. Each challenge has one attempt; do not reset its status or reveal order to retry.
 4. Add an active-count warning for each team: `=IF(COUNTIFS(History!A2:A,"Blue",History!D2:D,"Active")>1,"WARNING: Multiple active challenges","OK")`. If using individual team tabs with the same columns, use `=IF(COUNTIF(D2:D,"Active")>1,"WARNING: Multiple active challenges","OK")` in a separate cell outside the data table. Use conditional formatting for a red warning. Add a warning for duplicate reveal orders if desired.
 5. Connect publicly readable CSV feeds in `dist/config.json`: `ownershipCsvUrl`, `historyCsvUrl`, and, when present, `teamsCsvUrl`. Set `sheetUrl` to the editable sheet link. The current configuration uses Google Sheets `gviz` CSV URLs with the tab name; a sheet shared for public viewing supports this method. Published-to-web CSV URLs are an alternative. Reading or publishing data does not grant editing access. For separate team tabs, build the combined History tab with a formula such as `={Blue!A1:D1;FILTER(Blue!A2:D,Blue!A2:A<>"");FILTER(Red!A2:D,Red!A2:A<>"")}`. Keep feed tabs free of unrelated warning rows.
 6. The site polls every 30 seconds. Google's published feeds can be cached; this is not guaranteed instant synchronization. Test an edit before playing. Invalid feeds retain the last good board and display a red warning banner on every page. Unknown ownership names identify the exact sheet cell, territory, and invalid value. On first-load failure with a configured feed, no live game data is loaded and no demo claims are shown.
@@ -41,9 +42,9 @@ All game writes happen in Google Sheets. Revealing a card on the site does not w
 
 ## Challenge files
 
-Edit `dist/challenges/<territory-id>.md`. Use one `# Title`, paragraphs, and `## Section headings`. This is a deliberately small Markdown subset; HTML is displayed as text. Set retryable in `dist/data/territories.json` per challenge. Do not publish unfinished challenge content for a real game. Static files and public repository contents are discoverable; the reveal flow provides honor-system concealment, not secret storage.
+Edit `dist/challenges/<territory-id>.md`. Use one `# Title`, paragraphs, and `## Section headings`. This is a deliberately small Markdown subset; HTML is displayed as text. All challenges allow one attempt only. Do not publish unfinished challenge content for a real game. Static files and public repository contents are discoverable; the reveal flow provides honor-system concealment, not secret storage.
 
-Each team has one active challenge. Complete or abandon it before opening another. Failed/abandoned challenges can be retried only if their card permits it and no subsequent challenge has been opened. Succeeded cards can be viewed again for reference. Locked territories cannot be stolen. The scoreboard temporarily assumes one point per territory; scoring needs game-design review.
+Each team has one active challenge. Complete or abandon it before opening another. Failed or abandoned challenges cannot be retried. Succeeded cards can be viewed again for reference. Locked territories cannot be stolen. The scoreboard temporarily assumes one point per territory; scoring needs game-design review.
 
 ## Optional device memory
 

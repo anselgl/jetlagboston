@@ -7,5 +7,5 @@ Find a publicly accessible sign bearing the name of Everett. Take a team photo w
 ## Proof
 One photo showing the team and the neighborhood or municipality name. Record completion in your team sheet.
 
-## Retries
-Allowed until you open another challenge.
+## Attempts
+One attempt only. Failed or abandoned challenges cannot be retried.
